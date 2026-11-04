@@ -5,6 +5,8 @@ import { createClient, type SupabaseClient, type User } from "npm:@supabase/supa
 const ALLOWED_ORIGINS = new Set([
   "https://online.thezinnapp.com",
   "https://thezinnapp.com",
+  // Test address used before launch (GitHub Pages).
+  "https://beta.thezinnapp.com",
 ]);
 const LOCALHOST = /^http:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/;
 
