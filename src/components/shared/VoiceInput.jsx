@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
 import { useHaptic } from '@/hooks/useHaptic';
 import { useLanguage } from '@/hooks/useLanguage';
+import { Capacitor } from '@capacitor/core';
 
 // Speech recognition is built into Chrome, Edge and Safari, so voice input
 // costs nothing and the audio never leaves the device's speech service.
@@ -15,6 +16,20 @@ const SPEECH_LOCALES = {
 const getRecognition = () =>
   typeof window !== 'undefined' ? window.SpeechRecognition || window.webkitSpeechRecognition : null;
 
+// Android's in-app web view has no built-in speech recognition, so the Android app
+// uses the phone's own speech service instead (Google's "Speak now" dialog).
+const isAndroidApp = Capacitor.getPlatform() === 'android';
+
+async function nativeListen(lang) {
+  const { SpeechRecognition } = await import('@capacitor-community/speech-recognition');
+  const { available } = await SpeechRecognition.available();
+  if (!available) throw Object.assign(new Error('unavailable'), { code: 'unavailable' });
+  const perm = await SpeechRecognition.requestPermissions();
+  if (perm.speechRecognition !== 'granted') throw Object.assign(new Error('denied'), { code: 'denied' });
+  const result = await SpeechRecognition.start({ language: lang, maxResults: 1, popup: true, partialResults: false });
+  return (result?.matches?.[0] || '').trim();
+}
+
 export default function VoiceInput({ onTranscript, className = '' }) {
   const [isRecording, setIsRecording] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
@@ -25,7 +40,31 @@ export default function VoiceInput({ onTranscript, className = '' }) {
 
   useEffect(() => () => recognitionRef.current?.abort?.(), []);
 
+  const startNativeRecording = async () => {
+    setIsRecording(true);
+    try {
+      const text = await nativeListen(SPEECH_LOCALES[language] || 'en-US');
+      if (text) {
+        onTranscript(text);
+        success();
+      }
+    } catch (err) {
+      if (err?.code === 'denied') {
+        toast.error('Microphone access is off. Allow it for The ZINN App in your phone settings.');
+      } else if (err?.code === 'unavailable') {
+        toast.error("Voice input isn't available on this phone.");
+      }
+      // Anything else is usually "nothing was heard" or a cancelled dialog: stay quiet.
+    } finally {
+      setIsRecording(false);
+    }
+  };
+
   const startRecording = () => {
+    if (isAndroidApp) {
+      startNativeRecording();
+      return;
+    }
     const Recognition = getRecognition();
     if (!Recognition) {
       toast.error("Voice input isn't supported in this browser. Try Chrome or Safari.");
@@ -86,6 +125,8 @@ export default function VoiceInput({ onTranscript, className = '' }) {
   const handleClick = () => {
     tap();
     if (isProcessing) return;
+    // On Android the phone's own dialog handles stopping.
+    if (isAndroidApp && isRecording) return;
     if (isRecording) {
       stopRecording();
     } else {

@@ -1,4 +1,17 @@
 import { useEffect, useState } from 'react';
+import { Capacitor, SystemBars, SystemBarsStyle } from '@capacitor/core';
+
+// In the iPhone/Android apps, keep the clock/battery icons readable:
+// light icons on the dark theme, dark icons on the light theme.
+export function setPhoneBars(dark) {
+  if (!Capacitor.isNativePlatform()) return;
+  // Android phones with an old built-in browser engine (before version 140) keep plain
+  // light bars above and below the app, so their icons must stay dark to be seen.
+  const engine = Number((navigator.userAgent.match(/Chrome\/(\d+)/) || [])[1] || 0);
+  const lightBars = Capacitor.getPlatform() === 'android' && engine > 0 && engine < 140;
+  const style = lightBars ? SystemBarsStyle.Light : dark ? SystemBarsStyle.Dark : SystemBarsStyle.Light;
+  SystemBars.setStyle({ style }).catch(() => {});
+}
 
 // Auto mode is time-based: light during daytime hours, dark at night.
 // Daytime window: 6:00 AM – 8:00 PM local time.
@@ -49,6 +62,7 @@ export function useDarkMode() {
         document.head.appendChild(sb);
       }
       sb.setAttribute('content', dark ? 'black-translucent' : 'default');
+      setPhoneBars(dark);
     };
 
     let interval;

@@ -4,7 +4,11 @@
   "webDir": "dist",
   "ios": {
     "contentInset": "never",
-    "backgroundColor": "#18191b"
+    "backgroundColor": "#18191b",
+    "includePlugins": [
+      "@capacitor/app",
+      "@capacitor/browser"
+    ]
   },
   "android": {
     "backgroundColor": "#18191b"
