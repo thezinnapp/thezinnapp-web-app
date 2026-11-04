@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { UserPlus, Mail, Lock, Loader2 } from "lucide-react";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
 import AuthLayout from "@/components/AuthLayout";
+import { isNativeApp } from "@/lib/nativeAuth";
 import GoogleIcon from "@/components/GoogleIcon";
 import AppleIcon from "@/components/AppleIcon";
 import { toast } from "@/components/ui/use-toast";
@@ -185,7 +186,7 @@ export default function Register() {
               id="email"
               type="email"
               autoComplete="email"
-              autoFocus
+              autoFocus={!isNativeApp}
               placeholder="you@example.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}

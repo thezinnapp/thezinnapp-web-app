@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Mail, ArrowLeft, Loader2 } from "lucide-react";
 import AuthLayout from "@/components/AuthLayout";
+import { isNativeApp } from "@/lib/nativeAuth";
 
 export default function ForgotPassword() {
   const [email, setEmail] = useState("");
@@ -50,7 +51,7 @@ export default function ForgotPassword() {
                 id="email"
                 type="email"
                 autoComplete="email"
-                autoFocus
+                autoFocus={!isNativeApp}
                 placeholder="you@example.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}

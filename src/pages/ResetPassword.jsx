@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Lock, Loader2, AlertTriangle } from "lucide-react";
 import AuthLayout from "@/components/AuthLayout";
+import { isNativeApp } from "@/lib/nativeAuth";
 
 export default function ResetPassword() {
   const [searchParams] = useSearchParams();
@@ -81,7 +82,7 @@ export default function ResetPassword() {
               type="password"
               autoComplete="new-password"
               minLength={6}
-              autoFocus
+              autoFocus={!isNativeApp}
               placeholder="••••••••"
               value={newPassword}
               onChange={(e) => setNewPassword(e.target.value)}

@@ -4,6 +4,7 @@
 import { FunctionsError, FunctionsFetchError, FunctionsHttpError } from '@supabase/supabase-js';
 import { supabase } from '@/api/supabaseClient';
 import { ENTITY_TABLES } from '@/api/entityColumns';
+import { isNativeApp, nativeOAuthSignIn } from '@/lib/nativeAuth';
 
 // --- helpers ---------------------------------------------------------------
 
@@ -286,6 +287,8 @@ const auth = {
   },
 
   async loginWithProvider(provider, returnPath = '/') {
+    // Inside the iPhone/Android apps, sign in through the phone's browser sheet.
+    if (isNativeApp) return nativeOAuthSignIn(provider);
     const { error } = await supabase.auth.signInWithOAuth({
       provider,
       options: { redirectTo: siteUrl(returnPath) },

@@ -1,0 +1,12 @@
+{
+  "appId": "com.base6a371d643d3aa6a37625bf0c.app",
+  "appName": "The ZINN App",
+  "webDir": "dist",
+  "ios": {
+    "contentInset": "never",
+    "backgroundColor": "#18191b"
+  },
+  "android": {
+    "backgroundColor": "#18191b"
+  }
+}

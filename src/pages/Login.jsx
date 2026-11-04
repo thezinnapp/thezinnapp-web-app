@@ -6,13 +6,15 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { LogIn, Mail, Lock, Loader2 } from "lucide-react";
 import AuthLayout from "@/components/AuthLayout";
+import { isNativeApp } from "@/lib/nativeAuth";
 import GoogleIcon from "@/components/GoogleIcon";
 import AppleIcon from "@/components/AppleIcon";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  // A cancelled Google/Apple sign-in in the phone apps comes back with ?error=...
+  const [error, setError] = useState(() => new URLSearchParams(window.location.search).get("error") || "");
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
@@ -101,7 +103,7 @@ export default function Login() {
               id="email"
               type="email"
               autoComplete="email"
-              autoFocus
+              autoFocus={!isNativeApp}
               placeholder="you@example.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
