@@ -1,5 +1,16 @@
 apply plugin: 'com.android.application'
 
+// Release builds are signed with the Google Play upload key. The key and its passwords
+// live outside this repository (never upload them to GitHub):
+//   ~/Documents/The ZINN App Signing Keys/keystore.properties
+// or a different file named by the ZINN_KEYSTORE_PROPERTIES environment variable.
+def keystorePropsFile = file(System.getenv('ZINN_KEYSTORE_PROPERTIES') ?:
+    "${System.getProperty('user.home')}/Documents/The ZINN App Signing Keys/keystore.properties")
+def keystoreProps = new Properties()
+if (keystorePropsFile.exists()) {
+    keystorePropsFile.withInputStream { keystoreProps.load(it) }
+}
+
 android {
     namespace = "com.base6a371d643d3aa6a37625bf0c.app"
     compileSdk = rootProject.ext.compileSdkVersion
@@ -16,8 +27,21 @@ android {
             ignoreAssetsPattern = '!.svn:!.git:!.ds_store:!*.scc:.*:!CVS:!thumbs.db:!picasa.ini:!*~'
         }
     }
+    signingConfigs {
+        release {
+            if (keystorePropsFile.exists()) {
+                storeFile file(keystoreProps['storeFile'])
+                storePassword keystoreProps['storePassword']
+                keyAlias keystoreProps['keyAlias']
+                keyPassword keystoreProps['keyPassword']
+            }
+        }
+    }
     buildTypes {
         release {
+            if (keystorePropsFile.exists()) {
+                signingConfig signingConfigs.release
+            }
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
