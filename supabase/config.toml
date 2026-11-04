@@ -1,0 +1,18 @@
+project_id = "fdsbeshsxugjenaemmbe"
+
+# Each function checks the signed-in user itself (works with Supabase's new API keys),
+# so the gateway's older JWT check is turned off.
+[functions.invoke-llm]
+verify_jwt = false
+
+[functions.translate-json]
+verify_jwt = false
+
+[functions.delete-account]
+verify_jwt = false
+
+[functions.admin-invite]
+verify_jwt = false
+
+[functions.admin-move-entries]
+verify_jwt = false

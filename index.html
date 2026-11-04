@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/media/TheZINNAppLOGOAppStoreGoogle.png" />
+    <link rel="apple-touch-icon" href="/media/TheZINNAppLOGOAppStoreGoogle.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="theme-color" content="#FDFCF7" />
+    <meta name="color-scheme" content="light dark" />
+    <script>
+      (function () {
+        try {
+          var saved = localStorage.getItem('zinn-theme') || 'auto';
+          var hour = new Date().getHours();
+          var isDay = hour >= 6 && hour < 20;
+          var dark = saved === 'dark' || (saved === 'auto' && !isDay);
+          if (dark) document.documentElement.classList.add('dark');
+          var meta = document.querySelector('meta[name="theme-color"]:not([media])');
+          if (meta) meta.setAttribute('content', dark ? '#151719' : '#FDFCF7');
+          var cs = document.querySelector('meta[name="color-scheme"]');
+          if (cs) cs.setAttribute('content', dark ? 'dark' : 'light');
+          var sb = document.querySelector('meta[name="apple-mobile-web-app-status-bar-style"]');
+          if (sb) sb.setAttribute('content', dark ? 'black-translucent' : 'default');
+        } catch (e) {}
+      })();
+    </script>
+    <title>The ZINN App</title>
+    <meta name="description" content="The ZINN App is made up of seven sections — Beliefs, Social, Thinking, Boundaries, Maslow, Awareness, and Spiritual — each with its own unique capabilities." />
+    <meta property="og:title" content="The ZINN App" />
+    <meta property="og:description" content="The ZINN App is made up of seven sections — Beliefs, Social, Thinking, Boundaries, Maslow, Awareness, and Spiritual — each with its own unique capabilities." />
+    <meta property="og:image" content="https://online.thezinnapp.com/media/TheZINNAppLOGOThumbnailCH.png" />
+    <meta property="og:url" content="https://online.thezinnapp.com" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="The ZINN App" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="The ZINN App" />
+    <meta name="twitter:description" content="The ZINN App is made up of seven sections — Beliefs, Social, Thinking, Boundaries, Maslow, Awareness, and Spiritual — each with its own unique capabilities." />
+    <meta name="twitter:image" content="https://online.thezinnapp.com/media/TheZINNAppLOGOThumbnailCH.png" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="The ZINN App" />
+    <link rel="canonical" href="https://online.thezinnapp.com" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

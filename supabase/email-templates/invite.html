@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>You're invited to The ZINN App</title>
+</head>
+<body style="margin:0;padding:0;background-color:#f4f4f5;">
+<div style="display:none;max-height:0;overflow:hidden;">Set your password to join The ZINN App</div>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#f4f4f5;">
+<tr><td align="center" style="padding:32px 16px;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:520px;background-color:#ffffff;border-radius:12px;font-family:Arial,Helvetica,sans-serif;color:#1f2937;">
+<tr><td style="padding:28px 32px 0 32px;font-size:15px;font-weight:bold;letter-spacing:1px;color:#475569;">THE ZINN APP</td></tr>
+<tr><td style="padding:16px 32px 0 32px;">
+<h1 style="margin:0 0 16px 0;font-size:22px;line-height:1.3;color:#0f172a;">You're invited to The ZINN App</h1>
+<p style="margin:0 0 20px 0;font-size:16px;line-height:1.6;">You've been invited to join The ZINN App. Click the button below to set your password and finish creating your account.</p>
+<table role="presentation" cellpadding="0" cellspacing="0"><tr><td style="border-radius:8px;background-color:#0f172a;">
+<a href="{{ .SiteURL }}/reset-password?token_hash={{ .TokenHash }}&type=invite" style="display:inline-block;padding:14px 28px;font-size:16px;font-weight:bold;color:#ffffff;text-decoration:none;border-radius:8px;">Set your password</a>
+</td></tr></table>
+<p style="margin:16px 0 0 0;font-size:13px;line-height:1.6;color:#6b7280;">If the button doesn't work, copy this link into your browser:<br><a href="{{ .SiteURL }}/reset-password?token_hash={{ .TokenHash }}&type=invite" style="color:#475569;word-break:break-all;">{{ .SiteURL }}/reset-password?token_hash={{ .TokenHash }}&type=invite</a></p>
+<p style="margin:20px 0 0 0;font-size:14px;line-height:1.6;color:#475569;">This link works once and expires soon, so please use it today.</p>
+</td></tr>
+<tr><td style="padding:24px 32px 28px 32px;">
+<hr style="border:none;border-top:1px solid #e5e7eb;margin:0 0 16px 0;">
+<p style="margin:0 0 8px 0;font-size:12px;line-height:1.6;color:#6b7280;">You received this email because an administrator of The ZINN App invited {{ .Email }}. If you weren't expecting this invitation, you can ignore this email.</p>
+<p style="margin:0;font-size:12px;line-height:1.6;color:#6b7280;">Questions? Reply to this email or write to <a href="mailto:support@thezinnapp.com" style="color:#475569;">support@thezinnapp.com</a>.<br>The ZINN App &middot; <a href="https://thezinnapp.com" style="color:#475569;">thezinnapp.com</a></p>
+</td></tr>
+</table>
+</td></tr>
+</table>
+</body>
+</html>
