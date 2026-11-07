@@ -23,7 +23,7 @@ import {
   AlertDialogHeader, AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
 
-const APP_VERSION = '1.3';
+const APP_VERSION = '3.0.0';
 
 const getNavItems = (t) => [
   { path: '/', label: t('nav.beliefs'), shortLabel: t('nav.beliefsShort'), icon: Lightbulb },
