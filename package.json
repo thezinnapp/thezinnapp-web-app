@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && cp dist/index.html dist/404.html",
+    "build": "vite build && cp dist/index.html dist/404.html && for r in login register forgot-password reset-password privacy-policy about contact social-analysis thinking-report boundaries maslow self-awareness spiritual admin; do cp dist/index.html dist/$r.html; done",
     "lint": "eslint . --quiet",
     "lint:fix": "eslint . --fix",
     "typecheck": "tsc -p ./jsconfig.json",
