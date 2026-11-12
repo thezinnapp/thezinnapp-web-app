@@ -19,7 +19,21 @@ export async function nativeOAuthSignIn(provider) {
     options: { redirectTo: APP_AUTH_REDIRECT, skipBrowserRedirect: true },
   });
   if (error) throw error;
-  await Browser.open({ url: data.url, presentationStyle: 'popover' });
+  // Full screen on every device. A 'popover' only looks full screen on iPhone; on iPad it
+  // stays a small floating card and the sign-in page inside it never loads (App Review,
+  // iPad Air, Nov 2026).
+  const open = () => Browser.open({ url: data.url, presentationStyle: 'fullscreen' });
+  try {
+    await open();
+  } catch {
+    // An earlier sign-in sheet can still be registered; close it and try once more.
+    try {
+      await Browser.close();
+    } catch {
+      // nothing to close
+    }
+    await open();
+  }
 }
 
 let listening = false;

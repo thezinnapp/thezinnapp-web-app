@@ -31,13 +31,19 @@ export default function Login() {
     }
   };
 
-  const handleGoogle = () => {
-    base44.auth.loginWithProvider("google", "/");
+  // Show a message instead of doing nothing if the Google/Apple sign-in page can't open.
+  const signInWith = async (provider) => {
+    setError("");
+    try {
+      await base44.auth.loginWithProvider(provider, "/");
+    } catch (err) {
+      setError(err?.message || "Could not open the sign-in page. Please check your connection and try again.");
+    }
   };
 
-  const handleApple = () => {
-    base44.auth.loginWithProvider("apple", "/");
-  };
+  const handleGoogle = () => signInWith("google");
+
+  const handleApple = () => signInWith("apple");
 
   return (
     <AuthLayout
