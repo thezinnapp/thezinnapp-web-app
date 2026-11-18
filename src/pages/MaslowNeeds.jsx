@@ -72,7 +72,7 @@ Situation: ${report.situation || 'Not specified'}
 First Thought: ${report.first_thought}
 Feelings: ${report.feelings || 'Not specified'}
 Behavior: ${report.behavior || 'Not specified'}
-Associated Belief: ${report.associated_belief || 'Not specified'}
+Underlying Belief: ${report.associated_belief || 'Not specified'}
 
 For each of Maslow's five hierarchy levels, explain:
 1. Whether this need was likely UNMET or LACKING based on the thought and behavior

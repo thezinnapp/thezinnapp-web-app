@@ -21,9 +21,10 @@ const emptyForm = {
   first_thought: '',
   feelings: '',
   behavior: '',
+  associated_belief: '',
   disputing_thought: '',
   replacement_thought: '',
-  associated_belief: '',
+  take_it_captive: '',
 };
 
 export default function ThinkingReport() {
@@ -91,6 +92,8 @@ export default function ThinkingReport() {
     ${filledFields}
 
     PART 1 — Complete the standard CBT Thinking Report fields.
+    The associated_belief field is the Underlying Belief: the core belief beneath the first thought.
+    The take_it_captive field is "Take It Captive" (2 Corinthians 10:5): one real Bible verse that challenges the Underlying Belief, written as the reference followed by the verse text.
 
     PART 2 — Criminal and Addictive Thinking Analysis (based on Hazelden's workbook):
 
@@ -196,6 +199,7 @@ export default function ThinkingReport() {
           disputing_thought: { type: 'string' },
           replacement_thought: { type: 'string' },
           associated_belief: { type: 'string' },
+          take_it_captive: { type: 'string' },
           ai_analysis: { type: 'string' },
           distorted_thinking_patterns: {
             type: 'array',
@@ -328,6 +332,7 @@ export default function ThinkingReport() {
       disputing_thought: form.disputing_thought || result.disputing_thought,
       replacement_thought: form.replacement_thought || result.replacement_thought,
       associated_belief: form.associated_belief || result.associated_belief,
+      take_it_captive: form.take_it_captive || result.take_it_captive,
       ai_analysis: result.ai_analysis,
       distorted_thinking_patterns: JSON.stringify(result.distorted_thinking_patterns || []),
       avoidance_diversion_aggression_tactics: JSON.stringify(result.avoidance_diversion_aggression_tactics || []),
@@ -368,9 +373,10 @@ export default function ThinkingReport() {
     { key: 'first_thought', label: t('common.firstThought'), placeholder: t('thinkingReport.firstThoughtPlaceholder') },
     { key: 'feelings', label: t('common.feelings'), placeholder: t('thinkingReport.feelingsPlaceholder') },
     { key: 'behavior', label: t('common.behavior'), placeholder: t('thinkingReport.behaviorPlaceholder') },
+    { key: 'associated_belief', label: t('common.underlyingBelief'), placeholder: t('thinkingReport.underlyingBeliefPlaceholder') },
     { key: 'disputing_thought', label: t('common.disputingThought'), placeholder: t('thinkingReport.disputingThoughtPlaceholder') },
     { key: 'replacement_thought', label: t('common.replacementThought'), placeholder: t('thinkingReport.replacementThoughtPlaceholder') },
-    { key: 'associated_belief', label: t('common.associatedBelief'), placeholder: t('thinkingReport.associatedBeliefPlaceholder') },
+    { key: 'take_it_captive', label: t('common.takeItCaptive'), placeholder: t('thinkingReport.takeItCaptivePlaceholder') },
   ];
 
   return (
@@ -407,7 +413,7 @@ export default function ThinkingReport() {
                   value={form[field.key]}
                   onChange={(e) => handleChange(field.key, e.target.value)}
                   onFocus={() => setActiveField(field.key)}
-                  className={`min-h-[70px] resize-none transition-all ${activeField === field.key ? 'ring-2 ring-primary/30' : ''}`}
+                  className={`min-h-[5.5em] resize-none transition-all ${activeField === field.key ? 'ring-2 ring-primary/30' : ''}`}
                 />
               </div>
             ))}

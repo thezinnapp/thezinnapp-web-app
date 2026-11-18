@@ -71,6 +71,7 @@ export default function ThinkingReportCard({ report, onDelete, index = 0 }) {
     disputing_thought: report.disputing_thought,
     replacement_thought: report.replacement_thought,
     associated_belief: report.associated_belief,
+    take_it_captive: report.take_it_captive,
     ai_analysis: report.ai_analysis,
   });
   const translatedDistortedPatterns = useTranslatedJson(report.distorted_thinking_patterns);
@@ -82,10 +83,11 @@ export default function ThinkingReportCard({ report, onDelete, index = 0 }) {
     { key: 'first_thought', label: t('common.firstThought'), color: 'bg-chart-1/10' },
     { key: 'feelings', label: t('common.feelings'), color: 'bg-chart-3/10' },
     { key: 'behavior', label: t('common.behavior'), color: 'bg-chart-4/10' },
+    { key: 'associated_belief', label: t('common.underlyingBelief'), color: 'bg-primary/10' },
     { key: 'cognitive_distortion', label: t('common.cognitiveDistortion'), color: 'bg-destructive/10' },
     { key: 'disputing_thought', label: t('common.disputingThought'), color: 'bg-chart-5/10' },
     { key: 'replacement_thought', label: t('common.replacementThought'), color: 'bg-accent/10' },
-    { key: 'associated_belief', label: t('common.associatedBelief'), color: 'bg-primary/10' },
+    { key: 'take_it_captive', label: t('common.takeItCaptive'), color: 'bg-chart-2/10' },
   ];
 
   const distortedPatterns = parseJSON(translatedDistortedPatterns);
